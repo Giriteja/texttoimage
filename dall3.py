@@ -20,11 +20,11 @@ import webbrowser
 import os
 
 # Replace YOUR_API_KEY with your OpenAI API key
-client = OpenAI(api_key = "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")
+client = OpenAI(api_key = "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")
 
 chatgpt_headers = {
     "content-type": "application/json",
-    "Authorization":"Bearer {}".format('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')}
+    "Authorization":"Bearer {}".format('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')}
     
     
 import requests
