@@ -163,7 +163,7 @@ if(txt):
 	generate_images(texts, current_foldername)
 	
 	# Define the folder path where your images are located
-	image_folder = "/home/giriteja/Downloads/"+current_foldername
+	image_folder = current_foldername
 	    
 	    
 
