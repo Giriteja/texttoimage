@@ -1,13 +1,1 @@
-{
-  "type": "service_account",
-  "project_id": "learninpad",
-  "private_key_id": "4341edd012dc3e8751cb44c0b21d50e76c335c18",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDfXcRkuj35xxMF\nvD2pZCNcJmGZJtXYnHgTDyPR4eVhELLLUv3p//aZ39eSjMDnN4bj4F3XA0gmMBLv\nDOclALzn2FI8FXkc+VrUldVf5iFpt0/DZvX8IQx/JlcI10eDvSOEl0FKTyVOC62f\ncJkRKyP0Qr8Gr+Q/MUY1MYUR4D8NYXI1qUv/OWbZ+5YwQR8NljZVD9DKHgfbHs26\njaqn2fizjWu46GaKrfzpsn9qCfd7TV01yrnRP0Lb8RHwek5U77lW4kKNckejjLvc\n/L4HtcLAb3Ql199afVZMCi9u3bAzSCg9zX+jE0RN/ZsnyCdclPuWww2ys8TFlLn5\nmTktVhxpAgMBAAECggEAGvv/mckfq10j1Mur2drThEKNRCSrTUDC50+LDOQo00gC\nh5p6OyKderOufgGD3PMJ+F3ezFbUyKtCYE+LXZ6oE6zAK4rPD8NmmBvVVCFvzC8V\ng2ZdBYWDFlnOBi8G0FkhUTd6L2VeHP5/bk16qnavIGdPX1oQvZsg75RwzmrsRxvy\nuXmtNNHTvyJ3FZvWvHRKXyVMOsvaXTj/DDgAYwm1tNaLUlUuZ90EDXOFupjzkIM7\neXaBmJKbLxC07HC6KfL3hMJVP0tKv0Arpy9ZwY2+wRFC9AIqvJwn3o4nor/wePtx\nw+3mSe+X1wcPNgsB6kSYp48fYekLD+LvA+P3XQrDcQKBgQDyADlRLExdkfS+Lgte\nxn80MQ71W/rzzvYLtqJKg7W+7xGrWzuZR2ezl3rVqG+8Hwf0+C8E2r8+IUkDsRV3\nbpqn7Mc7anBeyCd3LiyNzq0s9y8dwfltMvfUkyHdXV1p0fZ0OYlZ5St0gk8bK80D\nMkJ8E2dlDFB4g+M1uVQyvXYcMQKBgQDsSZWs3/7vW91ml0OM8jdol8LxERG0rAn3\nmx2M5e6RUXakPD3aLswuEqJkQz9onfO1Mn1xx0o+LET15kKv+NfiV0/uGBLCH6Sh\nOSdnLGMKn3JyQuaMvXcxCMBZgh0epfeA8PIEJOKHPxjNXT0PNkwt58ELNPFNJ/nX\nvjT4oVFNuQKBgQDYWETlgaG/oQVYo9c8Yl5D7Xu+8/z0y9gA/sQ1s2vehuGX/Jba\nYBCgaFLDAbLqTh+R6/I0984yoBUjPMPBItsWNsKiJnTQ90T48gmYuOTupwizJL90\n1TTkEKkcuiQRv0gB/ZICELN5lCleVBkSu3Lec4ZiutCR/O46EDXqqqAVcQKBgQDo\nTMPBDQsG6ar2RHpd5HgC9UjrVZuxo329F5vqvNdZuNxKRQuOKHoGRb2vksmRIdDK\ncJQRuxtLmpxFoJYpiR09Yher/bDbdt6Uvqr1bRcGB5ItsYYWEeNPqsnoddoJGqQE\n+V0GI/ktfCP3KtZv0TL94p3QVcFx2H5x04cidP6IyQKBgQCNElJ5QyUr5ShxPNp1\n/wY8OtKWqRqZWDVlaXyw8KK1EZ5rFCtIkXGn335kioYeNl+a9OC64wSdeG+kQ1lI\n4zjALWUx+rEVwDUPGfD6OwN0+CtPF/0Nn/n/RWVP04+kXPMX8rmiLc+dgh1fFLkV\nvfHJyReRFLFRNynQ+sZOk2Oj4A==\n-----END PRIVATE KEY-----\n",
-  "client_email": "storage-dev@learninpad.iam.gserviceaccount.com",
-  "client_id": "107685305734245729555",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/storage-dev%40learninpad.iam.gserviceaccount.com",
-  "universe_domain": "googleapis.com"
-}
+
