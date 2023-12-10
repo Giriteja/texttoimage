@@ -45,11 +45,11 @@ storage_client = storage.Client(credentials=create_gcp_credentials())
 
 
 # Replace YOUR_API_KEY with your OpenAI API key
-client = OpenAI(api_key = "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")
+client = OpenAI(api_key = "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")
 
 chatgpt_headers = {
     "content-type": "application/json",
-    "Authorization":"Bearer {}".format('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')}
+    "Authorization":"Bearer {}".format('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')}
     
     
 import requests
