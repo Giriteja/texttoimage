@@ -281,7 +281,7 @@ if(submit):
 			words = text.split()
 			line = ""
 			for word in words:
-				if draw.textlength(line + " " + word, font=font)[0] <= max_text_width:
+				if draw.textsize(line + " " + word, font=font)[0] <= max_text_width:
 					line += " " + word
 				else:
 					wrapped_lines.append(line)
