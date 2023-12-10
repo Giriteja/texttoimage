@@ -70,7 +70,6 @@ st.title("Story Illustriator")
 
 def upload_blob_from_memory(bucket_name, destination_blob_name, contents):
     """Uploads a file to the bucket from memory."""
-    storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
     blob = bucket.blob(destination_blob_name)
 
@@ -81,7 +80,6 @@ def upload_blob_from_memory(bucket_name, destination_blob_name, contents):
     
 def upload_image_data(bucket_name, destination_blob_name, image_data):
     """Uploads image data to the specified bucket."""
-    storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
     blob = bucket.blob(destination_blob_name)
 
