@@ -14,22 +14,64 @@ from PIL import Image
 import glob
 import base64
 import shutil
-
+from io import BytesIO
 from openai import OpenAI
 import webbrowser
 import os
 
+#export GOOGLE_APPLICATION_CREDENTIALS="learninpad-4341edd012dc.json"
+
+
 # Replace YOUR_API_KEY with your OpenAI API key
-client = OpenAI(api_key = "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")
+client = OpenAI(api_key = "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")
 
 chatgpt_headers = {
     "content-type": "application/json",
-    "Authorization":"Bearer {}".format('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')}
+    "Authorization":"Bearer {}".format('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')}
     
     
 import requests
 import json
 from pprint import pprint
+
+
+from os import path
+import urllib.request
+
+
+from google.cloud import storage
+
+storage_client = storage.Client()
+
+st.title("Story Illustriator")
+
+def upload_blob_from_memory(bucket_name, destination_blob_name, contents):
+    """Uploads a file to the bucket from memory."""
+    storage_client = storage.Client()
+    bucket = storage_client.bucket(bucket_name)
+    blob = bucket.blob(destination_blob_name)
+
+    blob.upload_from_string(contents)
+
+    print(f"File uploaded to {destination_blob_name}.")
+    
+    
+def upload_image_data(bucket_name, destination_blob_name, image_data):
+    """Uploads image data to the specified bucket."""
+    storage_client = storage.Client()
+    bucket = storage_client.bucket(bucket_name)
+    blob = bucket.blob(destination_blob_name)
+
+    blob.upload_from_string(image_data, content_type='image/jpeg')
+
+    print(f"Image uploaded to {destination_blob_name}.")
+    
+    
+def get_image_data(bucket_name, blob_name):
+    bucket = storage_client.bucket(bucket_name)
+    blob = bucket.blob(blob_name)
+    img_data = blob.download_as_bytes()
+    return img_data
 
 def fetch_imagedescription_and_script(prompt,url,headers):
 
@@ -80,7 +122,7 @@ def create_download_zip(zip_directory, zip_path, filename='foo.zip'):
         st.markdown(href, unsafe_allow_html=True)
     
     
-def generate_images(prompts, fname):
+def generate_images(prompts, fname,lesson_name):
     # Call the API
     
 	for idx,i in enumerate(prompts):
@@ -108,23 +150,31 @@ def generate_images(prompts, fname):
 
 		#image_filename = os.path.join(fname, f"{i + 1}.jpg")
 		#image.save(image_filename)
+		
+		bucket_name = 'lp_text_to_content'  # Replace with your bucket name
+		folder_name = 'SSC_Telangana/'+class_name+"/"+subject_name+'/'+lesson_name+'/'# Replace with your folder name and include the trailing '/'
+		destination_blob_name = folder_name + f"{idx+1}.jpg"  # The 'folder' and file name in the bucket
+
+		# Assuming 'image_content' is the byte content of the image
+		upload_blob_from_memory(bucket_name, destination_blob_name, response.content)
 
 		#print(f"Image {i + 1}/{num_images} saved as '{image_filename}'")
             
-# Daily motivation, personal growth and positivity
+		# Daily motivation, personal growth and positivity
 
-txt = st.text_area("Enter the text")
 
-paragraph = """On my way home from the bus stop, my trunk had been carried by a porter. The problem
-now was we couldn’t find anyone who could help me carry the trunk to the bus stop. At another
-time of the year, we would have easily found someone to help me, but now most of the villagers
-were busy in the fields. Nobody had time to spare for me. In fact, carrying the trunk should not
-have been such a worry for me except that my education had made me shun physical labour. After
-all, I was a government officer and the idea of people seeing me carry my own luggage was not at
-all amusing. Otherwise, for a young man like me it should not have been an issue to carry a 20-
-kilo chest on my backt"""
+class_name = st.text_input("Enter Class Number")
+subject_name = st.selectbox(
+   "Select Subject Name",
+   ("English", "Social")
+   
+)
+lesson_name = st.text_input("Enter Lesson Number")
+txt = st.text_area("Enter the Paragraph")
 
-if(txt):
+submit=st.button("Submit")
+
+if(submit):
 	prompt_prefix = """You are tasked with dividing the text into paragraphs and Generating Image Descriptions for each paragraph
 	Your goal is to {}.
 	Please follow these instructions to create an engaging and impactful Image Descriptions for each subparagraph :
@@ -160,80 +210,91 @@ if(txt):
 
 
 
-	generate_images(texts, current_foldername)
+	generate_images(texts, current_foldername,lesson_name)
 	
 	# Define the folder path where your images are located
-	image_folder = current_foldername
+	image_folder = "/home/giriteja/Downloads/"+current_foldername
 	    
 	    
-
+	bucket_name = 'lp_text_to_content'  # Replace with your bucket name
+	folder_name = 'SSC_Telangana/'+class_name+"/"+subject_name+'/'+lesson_name+'/' # Replace with your folder name and in
 	# Open the image
-	for idx,path in enumerate(sorted(os.listdir(image_folder))):
-		# Open the image
-		image_path = image_folder+'/'+path  # Replace with your image file path
-		image = Image.open(image_path)
+	blobs = storage_client.list_blobs(bucket_name, prefix=folder_name)
 
-		# Get the image's dimensions
-		width, height = image.size
+	for idx,blob in enumerate(blobs):
+		if blob.name.endswith('.jpg') or blob.name.endswith('.png'):
+			# Get image data
+			img_data = get_image_data(bucket_name, blob.name)
+			# Open the image
+			image = Image.open(BytesIO(img_data))
 
-		# Define the amount of extra space to add at the bottom
-		extra_space = 200  # Adjust as needed
+			# Get the image's dimensions
+			width, height = image.size
 
-		# Create a new image with the extended height
-		new_height = height + extra_space
-		new_image = Image.new("RGB", (width, new_height), (255, 255, 255))  # You can specify the background color
+			# Define the amount of extra space to add at the bottom
+			extra_space = 200  # Adjust as needed
 
-		# Paste the original image onto the new image at the top
-		new_image.paste(image, (0, 0))
+			# Create a new image with the extended height
+			new_height = height + extra_space
+			new_image = Image.new("RGB", (width, new_height), (255, 255, 255))  # You can specify the background color
 
-		# Create a drawing context
-		draw = ImageDraw.Draw(new_image)
+			# Paste the original image onto the new image at the top
+			new_image.paste(image, (0, 0))
 
-		# Define text content, font, size, color, and position for the bottom space
-		text = texts[idx]
-		font = ImageFont.truetype("Arial.ttf", 24)  # Use an appropriate font file
-		text_color = (0, 0, 0)  # Black
-		text_position = (20, height)  # (x, y) coordinates
+			# Create a drawing context
+			draw = ImageDraw.Draw(new_image)
 
-		# Define the maximum width for text before wrapping
-		max_text_width = width - text_position[0]
+			# Define text content, font, size, color, and position for the bottom space
+			text = texts[idx]
+			font = ImageFont.truetype("Arial.ttf", 24)  # Use an appropriate font file
+			text_color = (0, 0, 0)  # Black
+			text_position = (20, height)  # (x, y) coordinates
 
-		# Create a list to store wrapped lines of text
-		wrapped_lines = []
+			# Define the maximum width for text before wrapping
+			max_text_width = width - text_position[0]
 
-		# Split the text into lines to fit within the specified width
-		words = text.split()
-		line = ""
-		for word in words:
-			if draw.textsize(line + " " + word, font=font)[0] <= max_text_width:
-				line += " " + word
-			else:
-				wrapped_lines.append(line)
-				line = word
-		wrapped_lines.append(line)
+			# Create a list to store wrapped lines of text
+			wrapped_lines = []
 
-		# Calculate the total height of the wrapped text
-		total_text_height = len(wrapped_lines) * font.getsize(" ")[1]
+			# Split the text into lines to fit within the specified width
+			words = text.split()
+			line = ""
+			for word in words:
+				if draw.textsize(line + " " + word, font=font)[0] <= max_text_width:
+					line += " " + word
+				else:
+					wrapped_lines.append(line)
+					line = word
+			wrapped_lines.append(line)
 
-		# Calculate the vertical position to center the wrapped text
-		text_position = (text_position[0], height + extra_space // 2 - total_text_height // 2)
+			# Calculate the total height of the wrapped text
+			total_text_height = len(wrapped_lines) * font.getsize(" ")[1]
 
-		# Add wrapped text to the image
-		for line in wrapped_lines:
-		    draw.text(text_position, line.strip(), fill=text_color, font=font)
-		    text_position = (text_position[0], text_position[1] + font.getsize(" ")[1])
+			# Calculate the vertical position to center the wrapped text
+			text_position = (text_position[0], height + extra_space // 2 - total_text_height // 2)
 
-		# Save the modified image
-		output_image_path = path.split('/')[-1]  # Replace with your desired output file path
-		new_image.save(current_foldername+"/"+output_image_path)
-		st.image(current_foldername+"/"+output_image_path)
+			# Add wrapped text to the image
+			for line in wrapped_lines:
+			    draw.text(text_position, line.strip(), fill=text_color, font=font)
+			    text_position = (text_position[0], text_position[1] + font.getsize(" ")[1])
 
-		# Close the images
-		image.close()
-		new_image.close()
+			# Save the modified image
+			output_image_path = path.split('/')[-1]  # Replace with your desired output file path
+			#new_image.save(current_foldername+"/"+output_image_path)
+			#st.image(current_foldername+"/"+output_image_path)
+			buffer = BytesIO()
+			new_image.save(buffer, format="JPEG")  # or "PNG", depending on your image format
+			buffer.seek(0)
+			image_data = buffer.getvalue()
+			destination_blob_name =blob.name
+			st.write(destination_blob_name)
+			upload_image_data(bucket_name, destination_blob_name, image_data)
+			# Close the images
+			image.close()
+			new_image.close()
 
-		print(f"Text added to the image and saved as {output_image_path}")
-		
+			print(f"Text added to the image and saved as {output_image_path}")
+			
 		
 	
 
