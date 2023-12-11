@@ -320,7 +320,49 @@ with tab1:
 				print(f"Text added to the image and saved as {output_image_path}")
 			
 		
+with tab2:
+	# Function to get image data from GCS
+	def get_image_data(bucket_name, blob_name):
+	    bucket = storage_client.bucket(bucket_name)
+	    blob = bucket.blob(blob_name)
+	    img_data = blob.download_as_bytes()
+	    return img_data
 	
+	# Function to delete a blob from GCS
+	def delete_blob(bucket_name, blob_name):
+	    bucket = storage_client.bucket(bucket_name)
+	    blob = bucket.blob(blob_name)
+	    blob.delete()
+	
+	# Streamlit app
+	if(1):
+	    st.title("GCS Bucket Image Viewer")
+	    class_name = st.text_input("Enter Class Number")
+	    subject_name = subject_name = st.selectbox(
+	   "Select Subject Name",
+	   ("English", "Social")
+	   
+	)
+	    lesson_name = st.text_input("Enter Lesson Number")
+	    bucket_name = 'lp_text_to_content'  # Replace with your bucket name
+	    folder_name = 'SSC_Telangana/'+class_name+"/"+subject_name+'/'+lesson_name+'/' # Replace with your folder name and in
+	
+	    # List blobs in the specified GCS bucket folder
+	    blobs = storage_client.list_blobs(bucket_name, prefix=folder_name)
+	
+	    for blob in blobs:
+	        if blob.name.endswith('.jpg') or blob.name.endswith('.png'):
+	            # Get image data
+	            img_data = get_image_data(bucket_name, blob.name)
+	
+	            # Display the image
+	            image = Image.open(BytesIO(img_data))
+	            st.image(image, width=500)
+	            
+	            # Delete button
+	            if st.button(f"Delete {blob.name}"):
+	                delete_blob(bucket_name, blob.name)
+	                st.success(f"Deleted {blob.name}")
 
 		
 
