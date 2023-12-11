@@ -23,7 +23,8 @@ import os
 from google.oauth2 import service_account
 from google.cloud import storage
 import os
-
+import calendar
+import time
 
 tab1, tab2, tab3 = st.tabs(["Create", "View", "Edit"])
 
@@ -169,13 +170,15 @@ def generate_images(prompts, fname,lesson_name):
 		with open(image_filename, "wb") as file:
 			# Write the content of the response to the file
 			file.write(response.content)
+		current_GMT = time.gmtime()
 
-		#image_filename = os.path.join(fname, f"{i + 1}.jpg")
+		time_stamp = calendar.timegm(current_GMT)
+		#image_filename = os.path.join(fname, time_stamp+".jpg")
 		#image.save(image_filename)
 		
 		bucket_name = 'lp_text_to_content'  # Replace with your bucket name
 		folder_name = 'SSC_Telangana/'+class_name+"/"+subject_name+'/'+lesson_name+'/'# Replace with your folder name and include the trailing '/'
-		destination_blob_name = folder_name + f"{idx+1}.jpg"  # The 'folder' and file name in the bucket
+		destination_blob_name = folder_name + time_stamp+".jpg"  # The 'folder' and file name in the bucket
 
 		# Assuming 'image_content' is the byte content of the image
 		upload_blob_from_memory(bucket_name, destination_blob_name, response.content)
