@@ -69,8 +69,6 @@ from google.cloud import storage
 
 #storage_client = storage.Client()
 
-st.title("Story Illustriator")
-
 def upload_blob_from_memory(bucket_name, destination_blob_name, contents):
     """Uploads a file to the bucket from memory."""
     bucket = storage_client.bucket(bucket_name)
@@ -187,6 +185,7 @@ def generate_images(prompts, fname,lesson_name):
 		# Daily motivation, personal growth and positivity
 
 with tab1:
+	st.title("Story Illustriator")
 	class_name = st.text_input("Enter Class Number")
 	subject_name = st.selectbox(
 	   "Select Subject Name",
