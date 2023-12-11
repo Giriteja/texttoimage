@@ -340,7 +340,7 @@ with tab2:
 	    class_name = st.text_input("Enter Class Number",key="clname")
 	    subject_name = subject_name = st.selectbox(
 	   "Select Subject Name",
-	   ("English", "Social")
+	   ("English", "Social"),value="subject"
 	   
 	)
 	    lesson_name = st.text_input("Enter Lesson Number",key="lesname")
