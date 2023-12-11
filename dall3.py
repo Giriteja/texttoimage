@@ -337,13 +337,13 @@ with tab2:
 	# Streamlit app
 	if(1):
 	    st.title("GCS Bucket Image Viewer")
-	    class_name = st.text_input("Enter Class Number")
+	    class_name = st.text_input("Enter Class Number",key="clname")
 	    subject_name = subject_name = st.selectbox(
 	   "Select Subject Name",
 	   ("English", "Social")
 	   
 	)
-	    lesson_name = st.text_input("Enter Lesson Number")
+	    lesson_name = st.text_input("Enter Lesson Number",key="lesname")
 	    bucket_name = 'lp_text_to_content'  # Replace with your bucket name
 	    folder_name = 'SSC_Telangana/'+class_name+"/"+subject_name+'/'+lesson_name+'/' # Replace with your folder name and in
 	
