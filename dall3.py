@@ -117,7 +117,7 @@ def fetch_imagedescription_and_script(prompt,url,headers):
     response_json = response.json()
 
     # Extract data from the API's response
-    st.write(response_json)
+    #st.write(response_json)
     output = json.loads(response_json['choices'][0]['message']['content'].strip())
     pprint (output)
     image_prompts = [k['image_description'] for k in output]
@@ -221,7 +221,7 @@ with tab1:
 		
 			if(txt):
 				image_prompts, texts = fetch_imagedescription_and_script(prompt,chatgpt_url,chatgpt_headers)
-			st.write("image_prompts: ", image_prompts)
+			#st.write("image_prompts: ", image_prompts)
 			st.write(texts)
 			print (len(texts))
 		
