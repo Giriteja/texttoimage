@@ -248,6 +248,8 @@ with tab1:
 			blobs = storage_client.list_blobs(bucket_name, prefix=folder_name)
 		
 			for idx,blob in enumerate(blobs):
+				st.write(blob.name)
+				st.write(timestamps)
 				if(blob.name in timestamps):
 					st.write("found it")
 					print(timestamps)
