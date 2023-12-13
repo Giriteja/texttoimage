@@ -249,7 +249,7 @@ with tab1:
 				for idx,blob in enumerate(blobs):
 					st.write(blob.name.split('/')[-1][0:-4])
 					st.write(timestamps)
-					if(blob.name.split('/')[-1][0:-4] in timestamps):
+					if(blob.name.split('/')[-1][0:-4]==time):
 						st.write("found it")
 						print(timestamps)
 						if blob.name.endswith('.jpg') or blob.name.endswith('.png'):
