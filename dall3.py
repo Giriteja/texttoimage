@@ -179,7 +179,7 @@ def generate_images(prompts, fname,lesson_name):
 		bucket_name = 'lp_text_to_content'  # Replace with your bucket name
 		folder_name = 'SSC_Telangana/'+class_name+"/"+subject_name+'/'+lesson_name+'/'# Replace with your folder name and include the trailing '/'
 		destination_blob_name = folder_name + str(time_stamp)+".jpg"  # The 'folder' and file name in the bucket
-		timestamps.append(time_stamp)
+		timestamps.append(str(time_stamp))
 		# Assuming 'image_content' is the byte content of the image
 		upload_blob_from_memory(bucket_name, destination_blob_name, response.content)
 		return timestamps
