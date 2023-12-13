@@ -245,7 +245,8 @@ with tab1:
 			folder_name = 'SSC_Telangana/'+class_name+"/"+subject_name+'/'+lesson_name+'/' # Replace with your folder name and in
 			# Open the image
 			blobs = storage_client.list_blobs(bucket_name, prefix=folder_name)
-			for idx_time,time in enumerate(timestamps):
+			count=0
+			for time in timestamps:
 				for blob in blobs:
 					st.write(blob.name.split('/')[-1][0:-4])
 					st.write(timestamps)
@@ -275,7 +276,7 @@ with tab1:
 							draw = ImageDraw.Draw(new_image)
 				
 							# Define text content, font, size, color, and position for the bottom space
-							text = texts[idx_time]
+							text = texts[count]
 							font = ImageFont.truetype("Arial.ttf", 24)  # Use an appropriate font file
 							text_color = (0, 0, 0)  # Black
 							text_position = (20, height)  # (x, y) coordinates
@@ -322,8 +323,9 @@ with tab1:
 							# Close the images
 							image.close()
 							new_image.close()
-				
+							count=count+1
 							print(f"Text added to the image and saved as {output_image_path}")
+
 			
 		
 with tab2:
