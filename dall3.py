@@ -147,7 +147,7 @@ def create_download_zip(zip_directory, zip_path, filename='foo.zip'):
     
 def generate_images(prompts, fname,lesson_name):
     # Call the API
-    
+    	timestamps=[]
 	for idx,i in enumerate(prompts):
 		response = client.images.generate(
 		  model="dall-e-3",
@@ -156,7 +156,6 @@ def generate_images(prompts, fname,lesson_name):
 		  quality="standard",
 		  n=1,
 		)
-		timestamps=[]
 		#st.write(response.data[0].url)
 		# Send a GET request to the image URL
 		response = requests.get(response.data[0].url)
