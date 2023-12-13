@@ -249,6 +249,8 @@ with tab1:
 		
 			for idx,blob in enumerate(blobs):
 				if(blob.name in timestamps):
+					st.write("found it")
+					print(timestamps)
 					if blob.name.endswith('.jpg') or blob.name.endswith('.png'):
 						# Get image data
 						img_data = get_image_data(bucket_name, blob.name)
