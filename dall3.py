@@ -181,7 +181,7 @@ def generate_images(prompts, fname,lesson_name):
 		timestamps.append(str(time_stamp))
 		# Assuming 'image_content' is the byte content of the image
 		upload_blob_from_memory(bucket_name, destination_blob_name, response.content)
-		return timestamps
+	return timestamps
 		#print(f"Image {i + 1}/{num_images} saved as '{image_filename}'")
             
 		# Daily motivation, personal growth and positivity
