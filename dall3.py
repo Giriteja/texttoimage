@@ -248,9 +248,9 @@ with tab1:
 			blobs = storage_client.list_blobs(bucket_name, prefix=folder_name)
 		
 			for idx,blob in enumerate(blobs):
-				st.write(blob.name)
+				st.write(blob.name.split('/')[-1][0:-4])
 				st.write(timestamps)
-				if(blob.name in timestamps):
+				if(blob.name.split('/')[-1][0:-4] in timestamps):
 					st.write("found it")
 					print(timestamps)
 					if blob.name.endswith('.jpg') or blob.name.endswith('.png'):
