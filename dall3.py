@@ -246,85 +246,85 @@ with tab1:
 			folder_name = 'SSC_Telangana/'+class_name+"/"+subject_name+'/'+lesson_name+'/' # Replace with your folder name and in
 			# Open the image
 			blobs = storage_client.list_blobs(bucket_name, prefix=folder_name)
-		
-			for idx,blob in enumerate(blobs):
-				st.write(blob.name.split('/')[-1][0:-4])
-				st.write(timestamps)
-				if(blob.name.split('/')[-1][0:-4] in timestamps):
-					st.write("found it")
-					print(timestamps)
-					if blob.name.endswith('.jpg') or blob.name.endswith('.png'):
-						# Get image data
-						img_data = get_image_data(bucket_name, blob.name)
-						# Open the image
-						image = Image.open(BytesIO(img_data))
-			
-						# Get the image's dimensions
-						width, height = image.size
-			
-						# Define the amount of extra space to add at the bottom
-						extra_space = 200  # Adjust as needed
-			
-						# Create a new image with the extended height
-						new_height = height + extra_space
-						new_image = Image.new("RGB", (width, new_height), (255, 255, 255))  # You can specify the background color
-			
-						# Paste the original image onto the new image at the top
-						new_image.paste(image, (0, 0))
-			
-						# Create a drawing context
-						draw = ImageDraw.Draw(new_image)
-			
-						# Define text content, font, size, color, and position for the bottom space
-						text = texts[idx]
-						font = ImageFont.truetype("Arial.ttf", 24)  # Use an appropriate font file
-						text_color = (0, 0, 0)  # Black
-						text_position = (20, height)  # (x, y) coordinates
-			
-						# Define the maximum width for text before wrapping
-						max_text_width = width - text_position[0]
-			
-						# Create a list to store wrapped lines of text
-						wrapped_lines = []
-			
-						# Split the text into lines to fit within the specified width
-						words = text.split()
-						line = ""
-						for word in words:
-							if draw.textsize(line + " " + word, font=font)[0] <= max_text_width:
-								line += " " + word
-							else:
-								wrapped_lines.append(line)
-								line = word
-						wrapped_lines.append(line)
-			
-						# Calculate the total height of the wrapped text
-						total_text_height = len(wrapped_lines) * font.getsize(" ")[1]
-			
-						# Calculate the vertical position to center the wrapped text
-						text_position = (text_position[0], height + extra_space // 2 - total_text_height // 2)
-			
-						# Add wrapped text to the image
-						for line in wrapped_lines:
-						    draw.text(text_position, line.strip(), fill=text_color, font=font)
-						    text_position = (text_position[0], text_position[1] + font.getsize(" ")[1])
-			
-						# Save the modified image
-						output_image_path = path.split('/')[-1]  # Replace with your desired output file path
-						#new_image.save(current_foldername+"/"+output_image_path)
-						#st.image(current_foldername+"/"+output_image_path)
-						buffer = BytesIO()
-						new_image.save(buffer, format="JPEG")  # or "PNG", depending on your image format
-						buffer.seek(0)
-						image_data = buffer.getvalue()
-						destination_blob_name =blob.name
-						st.write(destination_blob_name)
-						upload_image_data(bucket_name, destination_blob_name, image_data)
-						# Close the images
-						image.close()
-						new_image.close()
-			
-						print(f"Text added to the image and saved as {output_image_path}")
+			for idx_time,time in enumerate(timestamps):
+				for idx,blob in enumerate(blobs):
+					st.write(blob.name.split('/')[-1][0:-4])
+					st.write(timestamps)
+					if(blob.name.split('/')[-1][0:-4] in timestamps):
+						st.write("found it")
+						print(timestamps)
+						if blob.name.endswith('.jpg') or blob.name.endswith('.png'):
+							# Get image data
+							img_data = get_image_data(bucket_name, blob.name)
+							# Open the image
+							image = Image.open(BytesIO(img_data))
+				
+							# Get the image's dimensions
+							width, height = image.size
+				
+							# Define the amount of extra space to add at the bottom
+							extra_space = 200  # Adjust as needed
+				
+							# Create a new image with the extended height
+							new_height = height + extra_space
+							new_image = Image.new("RGB", (width, new_height), (255, 255, 255))  # You can specify the background color
+				
+							# Paste the original image onto the new image at the top
+							new_image.paste(image, (0, 0))
+				
+							# Create a drawing context
+							draw = ImageDraw.Draw(new_image)
+				
+							# Define text content, font, size, color, and position for the bottom space
+							text = texts[idx_time]
+							font = ImageFont.truetype("Arial.ttf", 24)  # Use an appropriate font file
+							text_color = (0, 0, 0)  # Black
+							text_position = (20, height)  # (x, y) coordinates
+				
+							# Define the maximum width for text before wrapping
+							max_text_width = width - text_position[0]
+				
+							# Create a list to store wrapped lines of text
+							wrapped_lines = []
+				
+							# Split the text into lines to fit within the specified width
+							words = text.split()
+							line = ""
+							for word in words:
+								if draw.textsize(line + " " + word, font=font)[0] <= max_text_width:
+									line += " " + word
+								else:
+									wrapped_lines.append(line)
+									line = word
+							wrapped_lines.append(line)
+				
+							# Calculate the total height of the wrapped text
+							total_text_height = len(wrapped_lines) * font.getsize(" ")[1]
+				
+							# Calculate the vertical position to center the wrapped text
+							text_position = (text_position[0], height + extra_space // 2 - total_text_height // 2)
+				
+							# Add wrapped text to the image
+							for line in wrapped_lines:
+							    draw.text(text_position, line.strip(), fill=text_color, font=font)
+							    text_position = (text_position[0], text_position[1] + font.getsize(" ")[1])
+				
+							# Save the modified image
+							output_image_path = path.split('/')[-1]  # Replace with your desired output file path
+							#new_image.save(current_foldername+"/"+output_image_path)
+							#st.image(current_foldername+"/"+output_image_path)
+							buffer = BytesIO()
+							new_image.save(buffer, format="JPEG")  # or "PNG", depending on your image format
+							buffer.seek(0)
+							image_data = buffer.getvalue()
+							destination_blob_name =blob.name
+							st.write(destination_blob_name)
+							upload_image_data(bucket_name, destination_blob_name, image_data)
+							# Close the images
+							image.close()
+							new_image.close()
+				
+							print(f"Text added to the image and saved as {output_image_path}")
 			
 		
 with tab2:
