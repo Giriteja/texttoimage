@@ -246,7 +246,7 @@ with tab1:
 			# Open the image
 			blobs = storage_client.list_blobs(bucket_name, prefix=folder_name)
 			for idx_time,time in enumerate(timestamps):
-				for idx,blob in enumerate(blobs):
+				for blob in blobs:
 					st.write(blob.name.split('/')[-1][0:-4])
 					st.write(timestamps)
 					if(blob.name.split('/')[-1][0:-4]==time):
