@@ -249,13 +249,13 @@ with tab1:
 			count=0
 			for time in timestamps:
 				if(1):
-					st.write(blob.name.split('/')[-1][0:-4])
+					#st.write(blob.name.split('/')[-1][0:-4])
 					st.write(timestamps)
 					if(1):
 						st.write("found it")
 						print(timestamps)
 					
-						if blob.name.endswith('.jpg') or blob.name.endswith('.png'):
+						if (1):
 							# Get image data
 							img_data = get_image_data(bucket_name, 'SSC_Telangana/'+class_name+"/"+subject_name+'/'+lesson_name+'/'+time+'.jpg')
 							# Open the image
@@ -319,7 +319,7 @@ with tab1:
 							new_image.save(buffer, format="JPEG")  # or "PNG", depending on your image format
 							buffer.seek(0)
 							image_data = buffer.getvalue()
-							destination_blob_name =blob.name
+							destination_blob_name ='SSC_Telangana/'+class_name+"/"+subject_name+'/'+lesson_name+'/'+time+'.jpg'
 							st.write(destination_blob_name)
 							upload_image_data(bucket_name, destination_blob_name, image_data)
 							# Close the images
