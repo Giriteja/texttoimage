@@ -245,7 +245,7 @@ with tab1:
 			folder_name = 'SSC_Telangana/'+class_name+"/"+subject_name+'/'+lesson_name+'/' # Replace with your folder name and in
 			# Open the image
 			blobs = storage_client.list_blobs(bucket_name, prefix=folder_name)
-			st.write(blobs)
+			#st.write(blobs)
 			count=0
 			for time in timestamps:
 				if(1):
