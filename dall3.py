@@ -245,14 +245,16 @@ with tab1:
 			folder_name = 'SSC_Telangana/'+class_name+"/"+subject_name+'/'+lesson_name+'/' # Replace with your folder name and in
 			# Open the image
 			blobs = storage_client.list_blobs(bucket_name, prefix=folder_name)
+			print(blobs)
 			count=0
 			for time in timestamps:
-				for blob in blobs:
+				if(1):
 					st.write(blob.name.split('/')[-1][0:-4])
 					st.write(timestamps)
 					if(blob.name.split('/')[-1][0:-4]==time):
 						st.write("found it")
 						print(timestamps)
+					
 						if blob.name.endswith('.jpg') or blob.name.endswith('.png'):
 							# Get image data
 							img_data = get_image_data(bucket_name, blob.name)
