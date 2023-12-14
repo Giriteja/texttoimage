@@ -250,9 +250,9 @@ with tab1:
 			for time in timestamps:
 				if(1):
 					#st.write(blob.name.split('/')[-1][0:-4])
-					st.write(timestamps)
+					#st.write(timestamps)
 					if(1):
-						st.write("found it")
+						#st.write("found it")
 						print(timestamps)
 					
 						if (1):
