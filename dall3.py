@@ -100,7 +100,7 @@ def fetch_imagedescription_and_script(prompt,url,headers):
 
     # Define the payload for the chat model
     messages = [
-        {"role": "system", "content": "You are an expert In dividing paragrpah into subparagraphs and Generating Image Descriptions related to dalle for each Subparagraph."},
+        {"role": "system", "content": "You are an expert In dividing paragrpah into subparagraphs and Generating Image Descriptions related to dalle for each Subparagraph.don't generate extra text stick to given paragraph"},
         {"role": "user", "content": prompt}
     ]
 
