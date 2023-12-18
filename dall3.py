@@ -100,7 +100,7 @@ def fetch_imagedescription_and_script(prompt,url,headers):
 
     # Define the payload for the chat model
     messages = [
-        {"role": "system", "content": "You are an expert In dividing paragrpah into subparagraphs and Generating Image Descriptions related to dalle for each Subparagraph.don't generate extra text stick to given paragraph"},
+        {"role": "system", "content": "You are an expert In dividing paragrpah into subparagraphs and Generating Image Descriptions related to dalle for each Subparagraph.don't generate extra text stick to given paragraph while dividing into paragraphs"},
         {"role": "user", "content": prompt}
     ]
 
@@ -207,6 +207,7 @@ with tab1:
 			2. For each scene cut, provide a detailed description of the stock image being shown.
 			3. Along with each image description, include a corresponding subparagraph that complements and enhances the visual.
 			4. Ensure that the sequence of images and text builds excitement and encourages viewers to take action.
+   			6. Ensure not to generate extra text stick to given paragraph while dividing into subparagraphs"
 			5. Strictly output your response in a JSON list format, adhering to the following sample structure:""".format(txt)
 		
 			sample_output="""
