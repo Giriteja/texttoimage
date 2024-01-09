@@ -106,7 +106,6 @@ def fetch_imagedescription_and_script(prompt,url,headers):
     
 
           
-          Expand Down
     
     
   
