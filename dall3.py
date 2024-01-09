@@ -221,7 +221,7 @@ with tab1:
 			prompt = prompt_prefix + sample_output + prompt_postinstruction
 		
 			if(txt):
-				image_prompts, texts = fetch_imagedescription_and_script(txt,chatgpt_url,chatgpt_headers)
+				 texts = fetch_imagedescription_and_script(txt,chatgpt_url,chatgpt_headers)
 			#st.write("image_prompts: ", image_prompts)
 			st.write(texts)
 			print (len(texts))
