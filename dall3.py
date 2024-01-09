@@ -100,7 +100,7 @@ def fetch_imagedescription_and_script(prompt,url,headers):
     st.write(prompt)
     # Define the payload for the chat model
     messages = [
-        {"role": "system", "content": "Divide the following text into paragraphs and give output in JSON list format:"},
+        {"role": "system", "content": "Divide the following text into paragraphs and give output JSON list format:"},
         {"role": "user", "content": prompt}
     ]
 
@@ -119,7 +119,7 @@ def fetch_imagedescription_and_script(prompt,url,headers):
 
     # Extract data from the API's response
     st.write(response_json)
-    output = json.loads(response_json['choices'][0]['message']['content'])
+    output = response_json['choices'][0]['message']['content']
     texts =  output
     st.write(texts)
     return  texts
