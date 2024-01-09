@@ -97,7 +97,7 @@ def get_image_data(bucket_name, blob_name):
     return img_data
 
 def fetch_imagedescription_and_script(prompt,url,headers):
-
+    st.write(prompt)
     # Define the payload for the chat model
     messages = [
         {"role": "system", "content": "Divide the following text into paragraphs:"},
