@@ -1,11 +1,9 @@
 chatgpt_url = "https://api.openai.com/v1/chat/completions"
-
 import os
 import io
 import requests
 from PIL import Image
 import random
-
 import uuid
 from getpass import getpass
 import streamlit as st
@@ -18,16 +16,13 @@ from io import BytesIO
 from openai import OpenAI
 import webbrowser
 import os
-
 #export GOOGLE_APPLICATION_CREDENTIALS="learninpad-4341edd012dc.json"
 from google.oauth2 import service_account
 from google.cloud import storage
 import os
 import calendar
 import time
-
 tab1, tab2, tab3 = st.tabs(["Create", "View", "Edit"])
-
 # Function to create GCP credentials from environment variables
 def create_gcp_credentials():
     credentials = service_account.Credentials.from_service_account_info({
@@ -44,14 +39,10 @@ def create_gcp_credentials():
 	"universe_domain":"googleapis.com"
     })
     return credentials
-
 # Use the custom credentials when initializing the storage client
 storage_client = storage.Client(credentials=create_gcp_credentials())
-
-
 # Replace YOUR_API_KEY with your OpenAI API key
 client = OpenAI(api_key = os.getenv("openaikey"))
-
 chatgpt_headers = {
     "content-type": "application/json",
     "Authorization":"Bearer {}".format(os.getenv("openaikey"))}
@@ -60,23 +51,15 @@ chatgpt_headers = {
 import requests
 import json
 from pprint import pprint
-
-
 from os import path
 import urllib.request
-
-
 from google.cloud import storage
-
 #storage_client = storage.Client()
-
 def upload_blob_from_memory(bucket_name, destination_blob_name, contents):
     """Uploads a file to the bucket from memory."""
     bucket = storage_client.bucket(bucket_name)
     blob = bucket.blob(destination_blob_name)
-
     blob.upload_from_string(contents)
-
     print(f"File uploaded to {destination_blob_name}.")
     
     
@@ -84,9 +67,7 @@ def upload_image_data(bucket_name, destination_blob_name, image_data):
     """Uploads image data to the specified bucket."""
     bucket = storage_client.bucket(bucket_name)
     blob = bucket.blob(destination_blob_name)
-
     blob.upload_from_string(image_data, content_type='image/jpeg')
-
     print(f"Image uploaded to {destination_blob_name}.")
     
     
@@ -95,15 +76,12 @@ def get_image_data(bucket_name, blob_name):
     blob = bucket.blob(blob_name)
     img_data = blob.download_as_bytes()
     return img_data
-
 def fetch_imagedescription_and_script(prompt,url,headers):
-    st.write(prompt)
     # Define the payload for the chat model
     messages = [
-        {"role": "system", "content": "Divide the following text into paragraphs and give output JSON list format:"},
+        {"role": "system", "content": "You are an expert In dividing text into paragraphs and Generating Image Descriptions related to dalle for each paragraph for the given text below:"},
         {"role": "user", "content": prompt}
     ]
-
     chatgpt_payload = {
         "model": "gpt-3.5-turbo-16k",
         "messages": messages,
@@ -112,17 +90,28 @@ def fetch_imagedescription_and_script(prompt,url,headers):
         "top_p": 1,
         "stop": ["###"]
     }
-
     # Make the request to OpenAI's API
     response = requests.post(url, json=chatgpt_payload, headers=headers)
     response_json = response.json()
 
     # Extract data from the API's response
     st.write(response_json)
-    output = response_json['choices'][0]['message']['content']
-    texts =  output
-    st.write(texts)
-    return  texts
+    output = json.loads(response_json['choices'][0]['message']['content'].strip())
+    pprint (output)
+    image_prompts = [k['image_description'] for k in output]
+
+    
+          
+            
+    
+
+          
+          Expand Down
+    
+    
+  
+    texts = [k['text'] for k in output]
+    return image_prompts, texts
     
     
    
@@ -168,7 +157,6 @@ def generate_images(prompts, fname,lesson_name):
 			# Write the content of the response to the file
 			file.write(response.content)
 		current_GMT = time.gmtime()
-
 		time_stamp = calendar.timegm(current_GMT)
 		#image_filename = os.path.join(fname, time_stamp+".jpg")
 		#image.save(image_filename)
@@ -183,7 +171,6 @@ def generate_images(prompts, fname,lesson_name):
 		#print(f"Image {i + 1}/{num_images} saved as '{image_filename}'")
             
 		# Daily motivation, personal growth and positivity
-
 with tab1:
 	st.title("Story Illustriator")
 	class_name = st.text_input("Enter Class Number")
@@ -221,7 +208,7 @@ with tab1:
 			prompt = prompt_prefix + sample_output + prompt_postinstruction
 		
 			if(txt):
-				 texts = fetch_imagedescription_and_script(txt,chatgpt_url,chatgpt_headers)
+				image_prompts, texts = fetch_imagedescription_and_script(prompt,chatgpt_url,chatgpt_headers)
 			#st.write("image_prompts: ", image_prompts)
 			st.write(texts)
 			print (len(texts))
@@ -326,7 +313,6 @@ with tab1:
 							new_image.close()
 							count=count+1
 							print(f"Text added to the image and saved as {output_image_path}")
-
 			
 		
 with tab2:
@@ -372,10 +358,4 @@ with tab2:
 	            if st.button(f"Delete {blob.name}"):
 	                delete_blob(bucket_name, blob.name)
 	                st.success(f"Deleted {blob.name}")
-
 		
-
-
-
-
-	
