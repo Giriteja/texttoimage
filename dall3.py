@@ -79,7 +79,7 @@ def get_image_data(bucket_name, blob_name):
 def fetch_imagedescription_and_script(prompt,url,headers):
     # Define the payload for the chat model
     messages = [
-        {"role": "system", "content": "You are an expert In dividing the given text into paragraphs:"},
+        {"role": "system", "content": "You are an expert In dividing the given text into paragraphs.while giving output as paragraphs don't generate data that is not part of the given text"},
         {"role": "user", "content": prompt}
     ]
     chatgpt_payload = {
