@@ -174,30 +174,25 @@ with tab1:
 	submit=st.button("Submit")
 	if(1):
 		if(submit):
-			prompt_prefix = """You are tasked with dividing the text into paragraphs and Generating Image Descriptions for each paragraph
-			Your goal is to {}.
-			Please follow these instructions to create an engaging and impactful Image Descriptions for each subparagraph :
-			1. Begin by setting the scene and capturing the viewer's attention with a captivating visual.
-			2. For each scene cut, provide a detailed description of the stock image being shown.
-			3. Along with each image description, include a corresponding subparagraph that complements and enhances the visual.
-			4. Ensure that the sequence of images and text builds excitement and encourages viewers to take action.
-   			6. Ensure not to generate extra text stick to given paragraph while dividing into subparagraphs"
-			5. Strictly output your response in a JSON list format, adhering to the following sample structure:""".format(txt)
+			prompt_prefix = """Please divide the following text into distinct paragraphs for image generation by DALL-E 3. Each paragraph should focus on a different scene or concept. Do not add any extra text while dividing.
+
+					{} Remember, each paragraph should form a complete, visually describable scene or concept on its own.
+					""".format(txt)
 		
 			sample_output="""
 			   [
-			       { "image_description": "Description of the first image here.", "text": "Text accompanying the first scene cut." },
-			       { "image_description": "Description of the second image here.", "text": "Text accompanying the second scene cut." },
+			       { "text": "Text accompanying the first scene cut." },
+			       {"text": "Text accompanying the second scene cut." },
 			       ...
 			   ]"""
 		
-			prompt_postinstruction="""By following these instructions, you will create an impactful Image descriptions for subparagraphs.
-			Output:""".format(txt)
+			#prompt_postinstruction="""By following these instructions, you will create an impactful Image descriptions for subparagraphs.
+			#Output:""".format(txt)
 		
-			prompt = prompt_prefix + sample_output + prompt_postinstruction
+			prompt = prompt_prefix + sample_output
 		
 			if(txt):
-				image_prompts, texts = fetch_imagedescription_and_script(prompt,chatgpt_url,chatgpt_headers)
+				 texts = fetch_imagedescription_and_script(prompt,chatgpt_url,chatgpt_headers)
 			#st.write("image_prompts: ", image_prompts)
 			st.write(texts)
 			print (len(texts))
