@@ -93,7 +93,6 @@ def fetch_imagedescription_and_script(prompt,url,headers):
     # Make the request to OpenAI's API
     response = requests.post(url, json=chatgpt_payload, headers=headers)
     response_json = response.json()
-
     # Extract data from the API's response
     st.write(response_json)
     output = json.loads(response_json['choices'][0]['message']['content'].strip())
@@ -175,18 +174,16 @@ with tab1:
 	if(1):
 		if(submit):
 			prompt_prefix = """Please divide the following text into distinct paragraphs for image generation by DALL-E 3. Each paragraph should focus on a different scene or concept. Do not add any extra text while dividing.
-
 					{}. Remember, each paragraph should form a complete, visually describable scene or concept on its own.
 					""".format(txt)
 		
 			sample_output="""
 			   [
-			       "Text accompanying the first scene cut",
-				"Text accompanying the second scene cut",
-    				...
-
+			       { "text": "Text accompanying the first scene cut." },
+			       {"text": "Text accompanying the second scene cut." },
+			       ...
 			   ]"""
-		
+
 			#prompt_postinstruction="""By following these instructions, you will create an impactful Image descriptions for subparagraphs.
 			#Output:""".format(txt)
 		
@@ -208,6 +205,17 @@ with tab1:
 		
 			timestamps=generate_images(texts, current_foldername,lesson_name)
 			
+
+    
+          
+            
+    
+
+          
+          Expand Down
+    
+    
+  
 			# Define the folder path where your images are located
 			image_folder = "/home/giriteja/Downloads/"+current_foldername
 			    
@@ -343,4 +351,3 @@ with tab2:
 	            if st.button(f"Delete {blob.name}"):
 	                delete_blob(bucket_name, blob.name)
 	                st.success(f"Deleted {blob.name}")
-		
