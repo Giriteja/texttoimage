@@ -176,13 +176,15 @@ with tab1:
 		if(submit):
 			prompt_prefix = """Please divide the following text into distinct paragraphs for image generation by DALL-E 3. Each paragraph should focus on a different scene or concept. Do not add any extra text while dividing.
 
-					{}. Remember, each paragraph should form a complete, visually describable scene or concept on its own.
+					{}. Remember, each paragraph should form a complete, visually describable scene or concept on its own. The output should be in a list of paragraphs.
 					""".format(txt)
 		
 			sample_output="""
 			   [
-			       "Text accompanying the first scene cut paragrah1.",
-			       "Text accompanying the second scene cut paragraph2." ,
+			       "Text accompanying the first scene cut"
+	  			"\n"
+			       "Text accompanying the second scene cut"
+	  			"\n"
 			   ]"""
 		
 			#prompt_postinstruction="""By following these instructions, you will create an impactful Image descriptions for subparagraphs.
