@@ -204,15 +204,6 @@ with tab1:
 		
 		
 			timestamps=generate_images(texts, current_foldername,lesson_name)
-			
-
-    
-          
-            
-    
-
-          
-          Expand Down
     
     
   
