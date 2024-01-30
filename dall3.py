@@ -181,8 +181,8 @@ with tab1:
 		
 			sample_output="""
 			   [
-			       { "text": "Text accompanying the first scene cut." },
-			       {"text": "Text accompanying the second scene cut." },
+			       "Text accompanying the first scene cut paragrah1.",
+			       "Text accompanying the second scene cut paragraph2." ,
 			   ]"""
 		
 			#prompt_postinstruction="""By following these instructions, you will create an impactful Image descriptions for subparagraphs.
