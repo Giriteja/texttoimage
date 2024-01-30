@@ -183,7 +183,6 @@ with tab1:
 			   [
 			       { "text": "Text accompanying the first scene cut." },
 			       {"text": "Text accompanying the second scene cut." },
-			       ...
 			   ]"""
 		
 			#prompt_postinstruction="""By following these instructions, you will create an impactful Image descriptions for subparagraphs.
