@@ -177,7 +177,7 @@ with tab1:
 					Text:{txt}
      					Format the output as follows:
 	  				['paragraph1','paragraph2']
-					""".
+					"""
 		
 			
 
