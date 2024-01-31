@@ -98,7 +98,7 @@ def fetch_imagedescription_and_script(prompt,url,headers):
     output = json.loads(response_json['choices'][0]['message']['content'].strip())
     pprint (output)
     #image_prompts = [k['image_description'] for k in output]
-    texts = [k['text'] for k in output]
+    texts = [for k in output]
     return  texts
     
     
@@ -173,21 +173,18 @@ with tab1:
 	submit=st.button("Submit")
 	if(1):
 		if(submit):
-			prompt_prefix = """Given the following text, divide it into paragraphs and provide the output as a list. Consider changes in topic, natural pauses, and transitional phrases as indicators for new paragraphs. Ensure each list item is a coherent paragraph from the text.
-
-					""".format(txt)
+			prompt_prefix = f"""Given the following text, divide it into paragraphs and provide the output as a list. Consider changes in topic, natural pauses, and transitional phrases as indicators for new paragraphs. Ensure each list item is a coherent paragraph from the text.
+					Text:{txt}
+     					Format the output as follows:
+	  				['paragraph1','paragraph2']
+					""".
 		
-			sample_output="""
-			   [
-			       { "text": "Text accompanying the first scene cut." },
-			       {"text": "Text accompanying the second scene cut." },
-			       ...
-			   ]"""
+			
 
 			#prompt_postinstruction="""By following these instructions, you will create an impactful Image descriptions for subparagraphs.
 			#Output:""".format(txt)
 		
-			prompt = prompt_prefix + sample_output
+			prompt = prompt_prefix
 		
 			if(txt):
 				 texts = fetch_imagedescription_and_script(prompt,chatgpt_url,chatgpt_headers)
