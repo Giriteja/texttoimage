@@ -95,7 +95,7 @@ def fetch_imagedescription_and_script(prompt,url,headers):
     response_json = response.json()
     # Extract data from the API's response
     st.write(response_json)
-    output = json.loads(response_json['choices'][0]['message']['content'].strip())
+    output = response_json['choices'][0]['message']['content']
     pprint (output)
     #image_prompts = [k['image_description'] for k in output]
     texts = [l for k in output]
