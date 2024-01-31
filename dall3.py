@@ -178,17 +178,6 @@ with tab1:
 					""".format(txt)
 
 			sample_output="""
-
-    
-          
-            
-    
-
-          
-          Expand Down
-    
-    
-  
 			   [
 			       { "text": "Text accompanying the first scene cut." },
 			       {"text": "Text accompanying the second scene cut." },
