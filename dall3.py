@@ -95,10 +95,10 @@ def fetch_imagedescription_and_script(prompt,url,headers):
     response_json = response.json()
     # Extract data from the API's response
     st.write(response_json)
-    output = response_json['choices'][0]['message']['content']
+    output = json.loads(response_json['choices'][0]['message']['content'].strip())
     pprint (output)
     #image_prompts = [k['image_description'] for k in output]
-    texts = [l for k in output]
+    texts = [k['text'] for k in output]
     return  texts
     
     
@@ -173,18 +173,32 @@ with tab1:
 	submit=st.button("Submit")
 	if(1):
 		if(submit):
-			prompt_prefix = f"""Given the following text, divide it into paragraphs and provide the output as a list. Consider changes in topic, natural pauses, and transitional phrases as indicators for new paragraphs. Ensure each list item is a coherent paragraph from the text.
-					Text:{txt}
-     					Format the output as follows:
-	  				['paragraph1','paragraph2']
-					"""
-		
-			
+			prompt_prefix = """Please divide the following text into distinct paragraphs for image generation by DALL-E 3. Each paragraph should focus on a different scene or concept. Do not add any extra text while dividing.
+					{}. Remember, each paragraph should form a complete, visually describable scene or concept on its own.
+					""".format(txt)
 
+			sample_output="""
+
+    
+          
+            
+    
+
+          
+          Expand Down
+    
+    
+  
+			   [
+			       { "text": "Text accompanying the first scene cut." },
+			       {"text": "Text accompanying the second scene cut." },
+			       ...
+			   ]"""
+		
 			#prompt_postinstruction="""By following these instructions, you will create an impactful Image descriptions for subparagraphs.
 			#Output:""".format(txt)
 		
-			prompt = prompt_prefix
+			prompt = prompt_prefix + sample_output
 		
 			if(txt):
 				 texts = fetch_imagedescription_and_script(prompt,chatgpt_url,chatgpt_headers)
@@ -201,9 +215,7 @@ with tab1:
 		
 		
 			timestamps=generate_images(texts, current_foldername,lesson_name)
-    
-    
-  
+			
 			# Define the folder path where your images are located
 			image_folder = "/home/giriteja/Downloads/"+current_foldername
 			    
