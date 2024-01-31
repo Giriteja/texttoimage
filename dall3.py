@@ -173,8 +173,8 @@ with tab1:
 	submit=st.button("Submit")
 	if(1):
 		if(submit):
-			prompt_prefix = """Please divide the following text into distinct paragraphs for image generation by DALL-E 3. Each paragraph should focus on a different scene or concept. Do not add any extra text while dividing.
-					{}. Remember, each paragraph should form a complete, visually describable scene or concept on its own.
+			prompt_prefix = """Given the following text, divide it into paragraphs and provide the output as a list. Consider changes in topic, natural pauses, and transitional phrases as indicators for new paragraphs. Ensure each list item is a coherent paragraph from the text.
+
 					""".format(txt)
 		
 			sample_output="""
