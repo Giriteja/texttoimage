@@ -169,13 +169,13 @@ with tab1:
 	)
 	lesson_name = st.text_input("Enter Lesson Number")
 	txt = st.text_area("Enter the Paragraph")
-	
+	txt_modified = st.text_area("Enter the modified Paragraph")
 	submit=st.button("Submit")
 	if(1):
 		if(submit):
 			prompt_prefix = """Please divide the following text into distinct paragraphs for image generation by DALL-E 3. Each paragraph should focus on a different scene or concept. Do not add any extra text while dividing.
 					{}. Remember, each paragraph should form a complete, visually describable scene or concept on its own.
-					""".format(txt)
+					""".format(txt_modified)
 
 			sample_output="""
 			   [
