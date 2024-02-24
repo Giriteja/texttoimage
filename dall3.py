@@ -78,7 +78,7 @@ def get_image_data(bucket_name, blob_name):
     img_data = blob.download_as_bytes()
     return img_data
 def fetch_imagedescription_and_script(text):
-	messages = [{"role": "system", "content": """ Please divide the following text into distinct paragraphs for image generation by DALL-E 3. Each paragraph should focus on a different scene or concept. Do not add any extra text while dividing}, {"role": "user", "content": text}]
+	messages = [{"role": "system", "content": """ Please divide the following text into distinct paragraphs for image generation by DALL-E 3. Each paragraph should focus on a different scene or concept. Do not add any extra text while dividing"""}, {"role": "user", "content": text}]
 	tools = [
 	        {
 	            "type": "function",
