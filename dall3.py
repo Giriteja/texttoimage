@@ -77,10 +77,9 @@ def get_image_data(bucket_name, blob_name):
     blob = bucket.blob(blob_name)
     img_data = blob.download_as_bytes()
     return img_data
-def fetch_imagedescription_and_script(prompt,url,headers):
+def fetch_imagedescription_and_script(text):
 
-   messages = [{"role": "system", "content": """ Given the following paragraph, generate multiple-choice questions that align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match 			the intended complexity and cognitive process.For each question classify it as Easy,Medium or Hard.
-   , {"role": "user", "content": paragraph}]
+   messages = [{"role": "system", "content": """ Please divide the following text into distinct paragraphs for image generation by DALL-E 3. Each paragraph should focus on a different scene or concept. Do not add any extra text while dividing}, {"role": "user", "content": text}]
    tools = [
         {
             "type": "function",
@@ -226,7 +225,7 @@ with tab1:
 			prompt = prompt_prefix + sample_output
 		
 			if(txt):
-				 texts = fetch_imagedescription_and_script(prompt,chatgpt_url,chatgpt_headers)
+				 texts = fetch_imagedescription_and_script(txt)
 			#st.write("image_prompts: ", image_prompts)
 			st.write(texts)
 			print (len(texts))
