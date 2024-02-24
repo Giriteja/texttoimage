@@ -123,8 +123,7 @@ def fetch_imagedescription_and_script(text):
 	            function_to_call = available_functions[function_name]
 	            function_args = json.loads(tool_calls[0].function.arguments)
 	            function_response = function_to_call(
-	                questions=function_args.get("questions"),
-	                topic=function_args.get("topic"),
+	                questions=function_args.get("paragraphs"),
 	            )
 	        return function_response
     
