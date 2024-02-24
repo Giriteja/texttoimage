@@ -90,7 +90,7 @@ def fetch_imagedescription_and_script(text):
             "questions": {
               "type": "array",
               "items": {
-                "type": "string" // Specifies that each item in the array should be a string
+                "type": "string"
               }
             }
           },
