@@ -89,17 +89,6 @@ def fetch_imagedescription_and_script(text):
 	                "properties": {
 	                    "questions": {
 	                        "type": "array",
-	                        "items": {
-	                            "type": "object",
-	                            "properties": {
-	                                "options": {
-	                                    "type": "array",
-	                                    "items": {
-	                                        "type": "string"
-	                                    }
-	                                },
-	                        }
-	                    }
 	                },
 	                "required": ["questions"]
 	            }
