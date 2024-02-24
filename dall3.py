@@ -204,21 +204,6 @@ with tab1:
 	submit=st.button("Submit")
 	if(1):
 		if(submit):
-			prompt_prefix = """Please divide the following text into distinct paragraphs for image generation by DALL-E 3. Each paragraph should focus on a different scene or concept. Do not add any extra text while dividing.
-					{}. Remember, each paragraph should form a complete, visually describable scene or concept on its own.
-					""".format(txt_modified)
-
-			sample_output="""
-			   [
-			       { "text": "Text accompanying the first scene cut." },
-			       {"text": "Text accompanying the second scene cut." },
-			       ...
-			   ]"""
-		
-			#prompt_postinstruction="""By following these instructions, you will create an impactful Image descriptions for subparagraphs.
-			#Output:""".format(txt)
-		
-			prompt = prompt_prefix + sample_output
 		
 			if(txt):
 				 texts = fetch_imagedescription_and_script(txt)
