@@ -69,7 +69,8 @@ def upload_image_data(bucket_name, destination_blob_name, image_data):
     blob = bucket.blob(destination_blob_name)
     blob.upload_from_string(image_data, content_type='image/jpeg')
     print(f"Image uploaded to {destination_blob_name}.")
-    
+def generateMCQs(questions,topic):
+        return json.dumps({"questions": questions, "topic":topic})    
     
 def get_image_data(bucket_name, blob_name):
     bucket = storage_client.bucket(bucket_name)
@@ -77,30 +78,64 @@ def get_image_data(bucket_name, blob_name):
     img_data = blob.download_as_bytes()
     return img_data
 def fetch_imagedescription_and_script(prompt,url,headers):
-    # Define the payload for the chat model
-    messages = [
-        {"role": "system", "content": "You are an expert In dividing the given text into paragraphs.while giving output as paragraphs don't generate data that is not part of the given text"},
-        {"role": "user", "content": prompt}
+
+   messages = [{"role": "system", "content": """ Given the following paragraph, generate multiple-choice questions that align with specific cognitive levels according to Bloom's Taxonomy. For each question, use the associated verbs as a guide to ensure the questions match 			the intended complexity and cognitive process.For each question classify it as Easy,Medium or Hard.
+   , {"role": "user", "content": paragraph}]
+   tools = [
+        {
+            "type": "function",
+            "function": {
+            "name": "generateMCQs",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "questions": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "options": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                        }
+                    }
+                },
+                "required": ["questions"]
+            }
+        }
+        }
     ]
-    chatgpt_payload = {
-        "model": "gpt-3.5-turbo-16k",
-        "messages": messages,
-        "temperature": 1.3,
-        "max_tokens": 2000,
-        "top_p": 1,
-	"type": "json_object",
-        "stop": ["###"]
-    }
-    # Make the request to OpenAI's API
-    response = requests.post(url, json=chatgpt_payload, headers=headers)
-    response_json = response.json()
-    # Extract data from the API's response
-    st.write(response_json)
-    output = json.loads(response_json['choices'][0]['message']['content'].strip())
-    pprint (output)
-    #image_prompts = [k['image_description'] for k in output]
-    texts = [k['text'] for k in output]
-    return  texts
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo-0125",
+        messages=messages,
+        tools=tools,
+        tool_choice="auto",  # auto is default, but we'll be explicit
+    )
+    #print("response------------",response)
+    response_message = response.choices[0].message
+    tool_calls = response_message.tool_calls
+    # Step 2: check if the model wanted to call a function
+    if tool_calls:
+        # Step 3: call the function
+        # Note: the JSON response may not always be valid; be sure to handle errors
+        available_functions = {
+            "generateMCQs": generateMCQs,
+        }  # only one function in this example, but you can have multiple
+        messages.append(response_message)  # extend conversation with assistant's reply
+        # Step 4: send the info for each function call and function response to the model
+        #print("tool_calls-----------------",tool_calls)
+        if(1):
+            function_name = tool_calls[0].function.name
+            function_to_call = available_functions[function_name]
+            function_args = json.loads(tool_calls[0].function.arguments)
+            function_response = function_to_call(
+                questions=function_args.get("questions"),
+                topic=function_args.get("topic"),
+            )
+            return function_response
     
     
    
