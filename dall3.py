@@ -155,11 +155,11 @@ def generate_images(prompts, fname,lesson_name):
 	timestamps=[]
 	for idx,i in enumerate(prompts):
 		response = client.images.generate(
-		  model="dall-e-3",
-		  prompt="""Generate artistic visuals for this text:"""+i,
-		  size="1024x1024",
-		  quality="standard",
-		  n=1,
+		model="dall-e-3",
+		prompt="""Generate artistic visuals for this text:"""+i,
+		size="1024x1024",
+		quality="standard",
+		n=1,
 			)
 		#st.write(response.data[0].url)
 		# Send a GET request to the image URL
