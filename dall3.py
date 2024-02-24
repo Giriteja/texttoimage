@@ -106,18 +106,18 @@ def fetch_imagedescription_and_script(text):
 	        }
 	        }
 	 }
-	    ]
-	    response = client.chat.completions.create(
+	]
+	response = client.chat.completions.create(
 	        model="gpt-3.5-turbo-0125",
 	        messages=messages,
 	        tools=tools,
 	        tool_choice="auto",  # auto is default, but we'll be explicit
 	    )
 	    #print("response------------",response)
-	    response_message = response.choices[0].message
-	    tool_calls = response_message.tool_calls
-	    # Step 2: check if the model wanted to call a function
-	    if tool_calls:
+	response_message = response.choices[0].message
+	tool_calls = response_message.tool_calls
+	# Step 2: check if the model wanted to call a function
+	if tool_calls:
 	        # Step 3: call the function
 	        # Note: the JSON response may not always be valid; be sure to handle errors
 	        available_functions = {
