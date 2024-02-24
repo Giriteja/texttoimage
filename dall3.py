@@ -160,7 +160,7 @@ def generate_images(prompts, fname,lesson_name):
 		  size="1024x1024",
 		  quality="standard",
 		  n=1,
-		)
+			)
 		#st.write(response.data[0].url)
 		# Send a GET request to the image URL
 		response = requests.get(response.data[0].url)
