@@ -78,63 +78,62 @@ def get_image_data(bucket_name, blob_name):
     img_data = blob.download_as_bytes()
     return img_data
 def fetch_imagedescription_and_script(text):
-
-   messages = [{"role": "system", "content": """ Please divide the following text into distinct paragraphs for image generation by DALL-E 3. Each paragraph should focus on a different scene or concept. Do not add any extra text while dividing}, {"role": "user", "content": text}]
-   tools = [
-        {
-            "type": "function",
-            "function": {
-            "name": "generateMCQs",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "questions": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "options": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                },
-                        }
-                    }
-                },
-                "required": ["questions"]
-            }
-        }
-        }
-    ]
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo-0125",
-        messages=messages,
-        tools=tools,
-        tool_choice="auto",  # auto is default, but we'll be explicit
-    )
-    #print("response------------",response)
-    response_message = response.choices[0].message
-    tool_calls = response_message.tool_calls
-    # Step 2: check if the model wanted to call a function
-    if tool_calls:
-        # Step 3: call the function
-        # Note: the JSON response may not always be valid; be sure to handle errors
-        available_functions = {
-            "generateMCQs": generateMCQs,
-        }  # only one function in this example, but you can have multiple
-        messages.append(response_message)  # extend conversation with assistant's reply
-        # Step 4: send the info for each function call and function response to the model
-        #print("tool_calls-----------------",tool_calls)
-        if(1):
-            function_name = tool_calls[0].function.name
-            function_to_call = available_functions[function_name]
-            function_args = json.loads(tool_calls[0].function.arguments)
-            function_response = function_to_call(
-                questions=function_args.get("questions"),
-                topic=function_args.get("topic"),
-            )
-            return function_response
+	messages = [{"role": "system", "content": """ Please divide the following text into distinct paragraphs for image generation by DALL-E 3. Each paragraph should focus on a different scene or concept. Do not add any extra text while dividing}, {"role": "user", "content": text}]
+	tools = [
+	        {
+	            "type": "function",
+	            "function": {
+	            "name": "generateMCQs",
+	            "parameters": {
+	                "type": "object",
+	                "properties": {
+	                    "questions": {
+	                        "type": "array",
+	                        "items": {
+	                            "type": "object",
+	                            "properties": {
+	                                "options": {
+	                                    "type": "array",
+	                                    "items": {
+	                                        "type": "string"
+	                                    }
+	                                },
+	                        }
+	                    }
+	                },
+	                "required": ["questions"]
+	            }
+	        }
+	        }
+	    ]
+	    response = client.chat.completions.create(
+	        model="gpt-3.5-turbo-0125",
+	        messages=messages,
+	        tools=tools,
+	        tool_choice="auto",  # auto is default, but we'll be explicit
+	    )
+	    #print("response------------",response)
+	    response_message = response.choices[0].message
+	    tool_calls = response_message.tool_calls
+	    # Step 2: check if the model wanted to call a function
+	    if tool_calls:
+	        # Step 3: call the function
+	        # Note: the JSON response may not always be valid; be sure to handle errors
+	        available_functions = {
+	            "generateMCQs": generateMCQs,
+	        }  # only one function in this example, but you can have multiple
+	        messages.append(response_message)  # extend conversation with assistant's reply
+	        # Step 4: send the info for each function call and function response to the model
+	        #print("tool_calls-----------------",tool_calls)
+	        if(1):
+	            function_name = tool_calls[0].function.name
+	            function_to_call = available_functions[function_name]
+	            function_args = json.loads(tool_calls[0].function.arguments)
+	            function_response = function_to_call(
+	                questions=function_args.get("questions"),
+	                topic=function_args.get("topic"),
+	            )
+	            return function_response
     
     
    
