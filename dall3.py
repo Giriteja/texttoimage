@@ -87,14 +87,14 @@ def fetch_imagedescription_and_script(text):
 	        "parameters": {
 	          "type": "object",
 	          "properties": {
-	            "questions": {
+	            "paragraphs": {
 	              "type": "array",
 	              "items": {
 	                "type": "string"
 	              }
 	            }
 	          },
-	          "required": ["questions"]
+	          "required": ["paragraphs"]
 	        }
 	      }
 	    }
