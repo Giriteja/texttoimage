@@ -105,6 +105,7 @@ def fetch_imagedescription_and_script(text):
 	            }
 	        }
 	        }
+	 }
 	    ]
 	    response = client.chat.completions.create(
 	        model="gpt-3.5-turbo-0125",
@@ -133,7 +134,7 @@ def fetch_imagedescription_and_script(text):
 	                questions=function_args.get("questions"),
 	                topic=function_args.get("topic"),
 	            )
-	            return function_response
+	        return function_response
     
     
    
@@ -156,7 +157,7 @@ def generate_images(prompts, fname,lesson_name):
 	for idx,i in enumerate(prompts):
 		response = client.images.generate(
 		model="dall-e-3",
-		prompt="""Generate artistic visuals for this text:"""+i,
+		prompt="Generate artistic visuals for this text:"+i,
 		size="1024x1024",
 		quality="standard",
 		n=1,
