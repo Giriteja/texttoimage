@@ -79,23 +79,26 @@ def get_image_data(bucket_name, blob_name):
     return img_data
 def fetch_imagedescription_and_script(text):
 	messages = [{"role": "system", "content": """ Please divide the following text into distinct paragraphs for image generation by DALL-E 3. Each paragraph should focus on a different scene or concept. Do not add any extra text while dividing"""}, {"role": "user", "content": text}]
-	tools = [
-	        {
-	            "type": "function",
-	            "function": {
-	            "name": "generateMCQs",
-	            "parameters": {
-	                "type": "object",
-	                "properties": {
-	                    "questions": {
-	                        "type": "array",
-	                },
-	                "required": ["questions"]
-	            }
-	        }
-	        }
-	 }
-	]
+	"tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "generateMCQs",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "questions": {
+              "type": "array",
+              "items": {
+                "type": "string" // Specifies that each item in the array should be a string
+              }
+            }
+          },
+          "required": ["questions"]
+        }
+      }
+    }
+  ]
 	response = client.chat.completions.create(
 	        model="gpt-3.5-turbo-0125",
 	        messages=messages,
