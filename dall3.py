@@ -105,7 +105,7 @@ def fetch_imagedescription_and_script(text):
 	        tools=tools,
 	        tool_choice="auto",  # auto is default, but we'll be explicit
 	    )
-	    #print("response------------",response)
+	st.write("response------------",response)
 	response_message = response.choices[0].message
 	tool_calls = response_message.tool_calls
 	# Step 2: check if the model wanted to call a function
