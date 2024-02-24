@@ -88,6 +88,7 @@ def fetch_imagedescription_and_script(prompt,url,headers):
         "temperature": 1.3,
         "max_tokens": 2000,
         "top_p": 1,
+	"type": "json_object",
         "stop": ["###"]
     }
     # Make the request to OpenAI's API
