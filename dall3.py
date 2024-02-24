@@ -139,11 +139,7 @@ def fetch_imagedescription_and_script(text):
    
    
 def create_download_zip(zip_directory, zip_path, filename='foo.zip'):
-    """ 
-        zip_directory (str): path to directory  you want to zip 
-        zip_path (str): where you want to save zip file
-        filename (str): download filename for user who download this
-    """
+   
     shutil.make_archive(zip_path, 'zip', zip_directory)
     with open(zip_path, 'rb') as f:
         bytes = f.read()
