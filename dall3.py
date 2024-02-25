@@ -69,8 +69,8 @@ def upload_image_data(bucket_name, destination_blob_name, image_data):
     blob = bucket.blob(destination_blob_name)
     blob.upload_from_string(image_data, content_type='image/jpeg')
     print(f"Image uploaded to {destination_blob_name}.")
-def generateMCQs(questions):
-        return json.dumps({"questions": questions})    
+def generateMCQs(paragraphs):
+        return json.dumps({"paragraphs": paragraphs})    
     
 def get_image_data(bucket_name, blob_name):
     bucket = storage_client.bucket(bucket_name)
