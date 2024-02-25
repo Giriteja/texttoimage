@@ -254,7 +254,7 @@ with tab1:
 							draw = ImageDraw.Draw(new_image)
 				
 							# Define text content, font, size, color, and position for the bottom space
-							text = texts[count]
+							text = texts['paragraphs'][count]
 							font = ImageFont.truetype("Arial.ttf", 24)  # Use an appropriate font file
 							text_color = (0, 0, 0)  # Black
 							text_position = (20, height)  # (x, y) coordinates
