@@ -211,7 +211,7 @@ with tab1:
 		
 		
 		
-			timestamps=generate_images(texts, current_foldername,lesson_name)
+			timestamps=generate_images(texts['paragraphs'], current_foldername,lesson_name)
 			
 			# Define the folder path where your images are located
 			image_folder = "/home/giriteja/Downloads/"+current_foldername
