@@ -210,7 +210,7 @@ with tab1:
 		
 		
 		
-		
+			texts=json.loads(texts)
 			timestamps=generate_images(texts['paragraphs'], current_foldername,lesson_name)
 			
 			# Define the folder path where your images are located
