@@ -114,7 +114,7 @@ def fetch_imagedescription_and_script(text):
 	        # Step 3: call the function
 	        # Note: the JSON response may not always be valid; be sure to handle errors
 	        available_functions = {
-	            "generateMCQs": generateMCQs,
+	            "generateparagraphs": generateparagraphs,
 	        }  # only one function in this example, but you can have multiple
 	        messages.append(response_message)  # extend conversation with assistant's reply
 	        # Step 4: send the info for each function call and function response to the model
