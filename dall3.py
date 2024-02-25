@@ -104,6 +104,7 @@ def fetch_imagedescription_and_script(text):
 	        messages=messages,
 	        tools=tools,
 	        tool_choice="auto",  # auto is default, but we'll be explicit
+		type= "json_object"
 	    )
 	
 	response_message = response.choices[0].message
