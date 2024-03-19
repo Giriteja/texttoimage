@@ -375,5 +375,5 @@ with tab3:
 	    if(class_name1 and subject_name1 and lesson_name123):
 	        blobs = storage_client.list_blobs(bucket_name, prefix=folder_name)
 	        for blob in blobs:
-	            st.write(blob.name)
+	            st.write("https://storage.googleapis.com/lp_text_to_content/"+blob.name)
 	            
