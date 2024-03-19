@@ -371,6 +371,7 @@ with tab3:
 	
 	    # List blobs in the specified GCS bucket folder
 	    blobs = storage_client.list_blobs(bucket_name, prefix=folder_name)
+		
 	
 	    for blob in blobs:
 	        if blob.name.endswith('.jpg') or blob.name.endswith('.png'):
