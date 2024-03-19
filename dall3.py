@@ -331,23 +331,25 @@ with tab2:
 	    lesson_name = st.text_input("Enter Lesson Number",key="lesname")
 	    bucket_name = 'lp_text_to_content'  # Replace with your bucket name
 	    folder_name = 'SSC_Telangana/'+class_name+"/"+subject_name+'/'+lesson_name+'/' # Replace with your folder name and in
+
+	    if(class_name and subject_name and lesson_name):
 	
-	    # List blobs in the specified GCS bucket folder
-	    blobs = storage_client.list_blobs(bucket_name, prefix=folder_name)
+	        # List blobs in the specified GCS bucket folder
+	        blobs = storage_client.list_blobs(bucket_name, prefix=folder_name)
 	
-	    for blob in blobs:
-	        if blob.name.endswith('.jpg') or blob.name.endswith('.png'):
-	            # Get image data
-	            img_data = get_image_data(bucket_name, blob.name)
+	        for blob in blobs:
+	            if blob.name.endswith('.jpg') or blob.name.endswith('.png'):
+	                # Get image data
+	                img_data = get_image_data(bucket_name, blob.name)
 	
-	            # Display the image
-	            image = Image.open(BytesIO(img_data))
-	            st.image(image, width=500)
+	                # Display the image
+	                image = Image.open(BytesIO(img_data))
+	                st.image(image, width=500)
 	            
-	            # Delete button
-	            if st.button(f"Delete {blob.name}"):
-	                delete_blob(bucket_name, blob.name)
-	                st.success(f"Deleted {blob.name}")
+	                # Delete button
+	                if st.button(f"Delete {blob.name}"):
+	                    delete_blob(bucket_name, blob.name)
+	                    st.success(f"Deleted {blob.name}")
 
 with tab3:
 	# Function to get image data from GCS
