@@ -374,5 +374,6 @@ with tab3:
 	    # List blobs in the specified GCS bucket folder
 	    if(class_name1 and subject_name1 and lesson_name123):
 	        blobs = storage_client.list_blobs(bucket_name, prefix=folder_name)
-	        st.write(blobs)
+	        for blob in blobs:
+			st.write(blob)
 	            
