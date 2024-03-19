@@ -374,5 +374,5 @@ with tab3:
 	   	 blobs = storage_client.list_blobs(bucket_name, prefix=folder_name)
 		
 	
-                st.write(blobs)
+                 st.write(blobs)
 	            
