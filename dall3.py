@@ -359,15 +359,15 @@ with tab3:
 	# Streamlit app
 	if(1):
 	    st.title("GCS Bucket Image Viewer")
-	    class_name = st.text_input("Enter Class Number",key="clname1")
-	    subject_name = subject_name = st.selectbox(
+	    class_name1 = st.text_input("Enter Class Number",key="clname1")
+	    subject_name1 = subject_name = st.selectbox(
 	   "Select Subject Name",
 	   ("English", "Social"),key="subject1"
 	   
 	)
-	    lesson_name = st.text_input("Enter Lesson Number",key="lesname")
+	    lesson_name1 = st.text_input("Enter Lesson Number",key="lesname1")
 	    bucket_name = 'lp_text_to_content'  # Replace with your bucket name
-	    folder_name = 'SSC_Telangana/'+class_name+"/"+subject_name+'/'+lesson_name+'/' # Replace with your folder name and in
+	    folder_name = 'SSC_Telangana/'+class_name1+"/"+subject_name1+'/'+lesson_name1+'/' # Replace with your folder name and in
 	
 	    # List blobs in the specified GCS bucket folder
 	    blobs = storage_client.list_blobs(bucket_name, prefix=folder_name)
