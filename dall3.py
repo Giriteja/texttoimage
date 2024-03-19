@@ -359,10 +359,10 @@ with tab3:
 	# Streamlit app
 	if(1):
 	    st.title("GCS Bucket Image Viewer")
-	    class_name = st.text_input("Enter Class Number",key="clname")
+	    class_name = st.text_input("Enter Class Number",key="clname1")
 	    subject_name = subject_name = st.selectbox(
 	   "Select Subject Name",
-	   ("English", "Social"),key="subject"
+	   ("English", "Social"),key="subject1"
 	   
 	)
 	    lesson_name = st.text_input("Enter Lesson Number",key="lesname")
