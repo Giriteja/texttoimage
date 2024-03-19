@@ -22,7 +22,7 @@ from google.cloud import storage
 import os
 import calendar
 import time
-tab1, tab2, tab3 = st.tabs(["Create", "View", "Edit"])
+tab1, tab2, tab3 = st.tabs(["Create", "View", "forapp"])
 # Function to create GCP credentials from environment variables
 def create_gcp_credentials():
     credentials = service_account.Credentials.from_service_account_info({
@@ -348,3 +348,34 @@ with tab2:
 	            if st.button(f"Delete {blob.name}"):
 	                delete_blob(bucket_name, blob.name)
 	                st.success(f"Deleted {blob.name}")
+
+with tab3:
+	# Function to get image data from GCS
+	def get_image_data(bucket_name, blob_name):
+	    bucket = storage_client.bucket(bucket_name)
+	    blob = bucket.blob(blob_name)
+	    return blob
+	
+	# Streamlit app
+	if(1):
+	    st.title("GCS Bucket Image Viewer")
+	    class_name = st.text_input("Enter Class Number",key="clname")
+	    subject_name = subject_name = st.selectbox(
+	   "Select Subject Name",
+	   ("English", "Social"),key="subject"
+	   
+	)
+	    lesson_name = st.text_input("Enter Lesson Number",key="lesname")
+	    bucket_name = 'lp_text_to_content'  # Replace with your bucket name
+	    folder_name = 'SSC_Telangana/'+class_name+"/"+subject_name+'/'+lesson_name+'/' # Replace with your folder name and in
+	
+	    # List blobs in the specified GCS bucket folder
+	    blobs = storage_client.list_blobs(bucket_name, prefix=folder_name)
+	
+	    for blob in blobs:
+	        if blob.name.endswith('.jpg') or blob.name.endswith('.png'):
+	            # Get image data
+	            img_data = get_image_data(bucket_name, blob.name)
+	
+	            st.write(img_data)
+	            
