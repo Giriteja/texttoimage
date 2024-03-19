@@ -370,8 +370,9 @@ with tab3:
 	    folder_name = 'SSC_Telangana/'+class_name1+"/"+subject_name1+'/'+lesson_name123+'/' # Replace with your folder name and in
 	
 	    # List blobs in the specified GCS bucket folder
-	    blobs = storage_client.list_blobs(bucket_name, prefix=folder_name)
+	    if(class_name1 and subject_name1 and lesson_name123):
+	   	 blobs = storage_client.list_blobs(bucket_name, prefix=folder_name)
 		
 	
-	    st.write(blobs)
+	    	st.write(blobs)
 	            
