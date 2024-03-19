@@ -365,9 +365,9 @@ with tab3:
 	   ("English", "Social"),key="subject1"
 	   
 	)
-	    lesson_name1 = st.text_input("Enter Lesson Number",key="lesname1")
+	    lesson_name123 = st.text_input("Enter Lesson Number",key="lesname123")
 	    bucket_name = 'lp_text_to_content'  # Replace with your bucket name
-	    folder_name = 'SSC_Telangana/'+class_name1+"/"+subject_name1+'/'+lesson_name1+'/' # Replace with your folder name and in
+	    folder_name = 'SSC_Telangana/'+class_name1+"/"+subject_name1+'/'+lesson_name123+'/' # Replace with your folder name and in
 	
 	    # List blobs in the specified GCS bucket folder
 	    blobs = storage_client.list_blobs(bucket_name, prefix=folder_name)
